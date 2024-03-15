@@ -27,7 +27,7 @@ export class GetUserByIdController {
 
             return ok(user)
         } catch (error) {
-            console.log(error)
+            console.error(error)
             return serverError()
         }
     }
