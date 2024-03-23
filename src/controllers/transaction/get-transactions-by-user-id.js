@@ -1,13 +1,14 @@
-import { serverError, UserNotFoundResponse } from '../helpers.js'
 import { UserNotFoundError } from '../../errors/user.js'
 import {
     checkIfIdIsValid,
     invalidIdResponse,
+    ok,
     requiredFieldIsMissingResponse,
-} from '../helpers/validation.js'
-import { ok } from '../helpers/http.js'
+    serverError,
+    userNotFoundResponse,
+} from '../helpers/index.js'
 
-export class GetTransactionsByUserId {
+export class GetTransactionsByUserIdController {
     constructor(getTransactionsByUserIdUseCase) {
         this.getTransactionsByUserIdUseCase = getTransactionsByUserIdUseCase
     }
@@ -15,32 +16,31 @@ export class GetTransactionsByUserId {
     async execute(httpRequest) {
         try {
             const userId = httpRequest.query.userId
-            // verificar se o userId foi passado como parâmentro
+
             if (!userId) {
                 return requiredFieldIsMissingResponse('userId')
             }
 
-            // verificar se o userId é um id valido
             const userIdIsValid = checkIfIdIsValid(userId)
+
             if (!userIdIsValid) {
                 return invalidIdResponse()
             }
-            //chamar o use case
+
             const transactions =
                 await this.getTransactionsByUserIdUseCase.execute({
                     userId,
                 })
-            return ok(transactions)
 
-            //retornar o http
+            return ok(transactions)
         } catch (error) {
             console.error(error)
 
             if (error instanceof UserNotFoundError) {
-                return UserNotFoundResponse
+                return userNotFoundResponse()
             }
 
-            return serverError
+            return serverError()
         }
     }
 }
