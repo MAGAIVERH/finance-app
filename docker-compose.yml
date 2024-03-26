@@ -3,11 +3,11 @@ version: '3'
 services:
     postgres:
         image: postgres
-        container_name: finance-app-postgres2
+        container_name: finance-app-postgres
         environment:
             POSTGRES_PASSWORD: password
             POSTGRES_USER: postgres
-            POSTGRES_DB: finance-app
+            POSTGRES_DB: financeapp
         ports:
             - '5432:5432'
         volumes:

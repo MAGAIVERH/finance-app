@@ -21,5 +21,5 @@ CREATE TABLE IF NOT EXISTS transactions (
     name VARCHAR(100) NOT NULL,
     date DATE NOT NULL,
     amount NUMERIC(10,2) NOT NULL,
-    type transactions_type NOT NULL
+    type transaction_type NOT NULL
 );
