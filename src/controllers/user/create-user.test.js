@@ -14,9 +14,9 @@ describe('Create User Controller', () => {
 
         const httpRequest = {
             body: {
-                first_name: 'carlos',
-                last_name: 'magaiver',
-                email: 'cm@gmail.com',
+                first_name: 'irina',
+                last_name: 'ucrania',
+                email: 'tallin@gmail.com',
                 password: '1234567',
             },
         }
@@ -27,7 +27,7 @@ describe('Create User Controller', () => {
         // ASSERT
 
         expect(result.statusCode).toBe(201)
-        expect(result.body).toBe(httpRequest.body)
+        expect(result.body).toEqual(httpRequest.body)
     })
 
     it('should return 400 if first_name is not provided', async () => {
@@ -37,8 +37,8 @@ describe('Create User Controller', () => {
 
         const httpRequest = {
             body: {
-                last_name: 'magaiver',
-                email: 'cm@gmail.com',
+                last_name: 'ucrania',
+                email: 'tallin@gmail.com',
                 password: '1234567',
             },
         }
@@ -57,9 +57,10 @@ describe('Create User Controller', () => {
 
         const httpRequest = {
             body: {
-                first_name: 'joao',
-                email: 'joao@gmail.com',
-                password: '0000000000',
+                first_name: 'irina',
+
+                email: 'tallin@gmail.com',
+                password: '1234567',
             },
         }
 
@@ -77,9 +78,9 @@ describe('Create User Controller', () => {
 
         const httpRequest = {
             body: {
-                first_name: 'carlos',
-                last_name: 'magaiver',
-                email: 'cm@gmail.com',
+                first_name: 'irina',
+                last_name: 'ucrania',
+                email: 'tallin@gmail.com',
                 password: '1234567',
             },
         }
@@ -97,8 +98,9 @@ describe('Create User Controller', () => {
 
         const httpRequest = {
             body: {
-                first_name: 'carlos',
-                last_name: 'magaiver',
+                first_name: 'irina',
+                last_name: 'ucrania',
+
                 password: '1234567',
             },
         }
@@ -116,10 +118,10 @@ describe('Create User Controller', () => {
 
         const httpRequest = {
             body: {
-                first_name: 'magalhaes',
-                last_name: 'pereira',
-                email: 'maga',
-                password: '1122334455',
+                first_name: 'irina',
+                last_name: 'ucrania',
+                email: 'email_invalid',
+                password: '1234567',
             },
         }
         // act
@@ -169,5 +171,28 @@ describe('Create User Controller', () => {
         // assert
 
         expect(result.statusCode).toBe(400)
+    })
+
+    it('should call CreateUserUseCase with correct params', async () => {
+        // arrange
+        const createUserUseCase = new CreateUserUseCaseStub()
+        const createUserController = new CreateUserController(createUserUseCase)
+
+        const httpRequest = {
+            body: {
+                first_name: 'irina',
+                last_name: 'ucrania',
+                email: 'tallin@gmail.com',
+                password: '1234567',
+            },
+        }
+        const executeSpy = jest.spyOn(createUserUseCase, 'execute')
+
+        // act
+        await createUserController.execute(httpRequest)
+
+        // assetr
+        expect(executeSpy).toHaveBeenCalledWith(httpRequest.body)
+        expect(executeSpy).toHaveBeenCalledTimes(1)
     })
 })
