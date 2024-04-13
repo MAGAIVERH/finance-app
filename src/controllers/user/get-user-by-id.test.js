@@ -59,7 +59,6 @@ describe('GetUserByIdController', () => {
 
         // act
         const result = await sut.execute(httpRequest)
-
         // assert
         expect(result.statusCode).toBe(404)
     })
