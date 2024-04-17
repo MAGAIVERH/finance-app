@@ -86,5 +86,3 @@ describe('Delete Transaction Controller', () => {
         expect(result.statusCode).toBe(500)
     })
 })
-
-// --passWithNoTests --silent
