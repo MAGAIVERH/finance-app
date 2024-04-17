@@ -62,7 +62,7 @@ describe(' Get Transactions By User Id Controller', () => {
         expect(response.statusCode).toBe(400)
     })
 
-    it('should return 404 when user is not found', async () => {
+    it('should return 404 when GetUserByIdUseCase throws UserNotFoundError', async () => {
         // arrange
         const { sut, getUserByIdUseCase } = makeSut()
         jest.spyOn(getUserByIdUseCase, 'execute').mockRejectedValueOnce(
@@ -77,5 +77,22 @@ describe(' Get Transactions By User Id Controller', () => {
 
         // assert
         expect(result.statusCode).toBe(404)
+    })
+
+    it('should return 500 when GetUserByIdUseCase throws generic error', async () => {
+        // arrange
+        const { sut, getUserByIdUseCase } = makeSut()
+        jest.spyOn(getUserByIdUseCase, 'execute').mockRejectedValueOnce(
+            new Error(),
+        )
+        // act
+        const result = await sut.execute({
+            query: {
+                userId: faker.string.uuid(),
+            },
+        })
+
+        // assert
+        expect(result.statusCode).toBe(500)
     })
 })
