@@ -166,7 +166,7 @@ describe('Create User Controller', () => {
         // act
         await sut.execute(httpRequest)
 
-        // assetr
+        // assert
         expect(executeSpy).toHaveBeenCalledWith(httpRequest.body)
         expect(executeSpy).toHaveBeenCalledTimes(1)
     })
