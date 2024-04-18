@@ -10,7 +10,7 @@ import {
     serverError,
 } from '../helpers/index.js'
 
-export class UpdatetransactionController {
+export class UpdateTransactionController {
     constructor(updateTransactionUseCase) {
         this.updateTransactionUseCase = updateTransactionUseCase
     }
