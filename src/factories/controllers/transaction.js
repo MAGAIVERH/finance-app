@@ -2,7 +2,7 @@ import { IdGeneratorAdapter } from '../../adapters/index.js'
 import {
     CreateTransactionController,
     GetTransactionsByUserIdController,
-    UpdatetransactionController,
+    UpdateTransactionController,
     DeleteTransactionController,
 } from '../../controllers/index.js'
 import {
@@ -63,7 +63,7 @@ export const makeUpdateTransactionController = () => {
         updateTransactionRepository,
     )
 
-    const updateTransactionController = new UpdatetransactionController(
+    const updateTransactionController = new UpdateTransactionController(
         updateTransactionUseCase,
     )
 
